@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  #name: {{ include "ratings-service.fullname" . }}
+  name: {{ .Values.service.name}}
+  labels:
+    {{- range $key, $value := .Values.service.labels }}
+    {{ $key }}: {{ $value | quote }}
+    {{- end }}
+   # {{- include "ratings-service.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- range $key, $value := .Values.service.selector }}
+    {{ $key }}: {{ $value | quote }}
+    {{- end }}
+   # {{- include "ratings-service.selectorLabels" . | nindent 4 }}
