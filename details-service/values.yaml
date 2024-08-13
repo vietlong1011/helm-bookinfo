@@ -29,12 +29,23 @@ serviceAccount:
   labels:
     account: details
 
-podAnnotations: {}
-podLabels: {}
+podAnnotations: 
+  sidecar.istio.io/status: "setup annotation oke"
 
+podLabels: 
+  app: detail
+  istio: detail
+  sidecar.istio.io/inject: "true"
 
-podSecurityContext: {}
-  # fsGroup: 2000
+sidecar:
+  livenessProbe:
+    httpGet:
+      path: /details/0
+      port: 9080
+  readinessProbe:
+    httpGet:
+      path: /details/0
+      port: 9080  
 
 securityContext: {}
   # capabilities:
@@ -78,14 +89,14 @@ resources: {}
   #   cpu: 100m
   #   memory: 128Mi
 
-livenessProbe:
-  httpGet:
-    path: /details/0
-    port: 9080
-readinessProbe:
-  httpGet:
-    path: /details/0
-    port: 9080
+# livenessProbe:
+#   httpGet:
+#     path: /details/0
+#     port: 9080
+# readinessProbe:
+#   httpGet:
+#     path: /details/0
+#     port: 9080
 
 autoscaling:
   enabled: false

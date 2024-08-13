@@ -28,12 +28,12 @@ serviceAccount:
     account: productpage
 
 podAnnotations: 
-  prometheus.io/scrape: "true"
-  prometheus.io/port: "9080"
-  prometheus.io/path: "/metrics"
+  sidecar.istio.io/status: "setup annotation oke"
 podLabels: 
   app: productpage
   version: v1
+  istio: productpage-istio
+  sidecar.istio.io/inject: "true" 
 
 podSecurityContext: {}
   # fsGroup: 2000
@@ -80,14 +80,14 @@ resources: {}
   #   cpu: 100m
   #   memory: 128Mi
 
-livenessProbe:
-  httpGet:
-    path: /
-    port: http
-readinessProbe:
-  httpGet:
-    path: /
-    port: http
+# livenessProbe:
+#   httpGet:
+#     path: /
+#     port: http
+# readinessProbe:
+#   httpGet:
+#     path: /
+#     port: http
 
 autoscaling:
   enabled: false

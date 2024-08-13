@@ -47,8 +47,12 @@ deployments:
     repository: docker.io/istio/examples-bookinfo-reviews-v3
     pullPolicy: IfNotPresent
     imageTag: 1.19.1
-podAnnotations: {}
-podLabels: {}
+podAnnotations: 
+  sidecar.istio.io/status: "setup annotation oke"
+podLabels: 
+  app: reviews
+  istio: reviews-istio
+  sidecar.istio.io/inject: "true"
 
 podSecurityContext: {}
   # fsGroup: 2000

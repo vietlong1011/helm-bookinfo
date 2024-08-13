@@ -34,10 +34,13 @@ selector:
     app: ratings
     version: v1
     
-podAnnotations: {}
+podAnnotations: 
+  sidecar.istio.io/status: "setup annotation oke"
 podLabels: 
   app: ratings
   version: v1
+  istio: ratings-istio
+  sidecar.istio.io/inject: "true"
   
 
 podSecurityContext: {}
@@ -90,14 +93,14 @@ resources: {}
   #   cpu: 100m
   #   memory: 128Mi
 
-livenessProbe:
-  httpGet:
-    path: /ratings/0
-    port: http
-readinessProbe:
-  httpGet:
-    path: /ratings/0
-    port: http
+# livenessProbe:
+#   httpGet:
+#     path: /ratings/0
+#     port: http
+# readinessProbe:
+#   httpGet:
+#     path: /ratings/0
+#     port: http
 
 autoscaling:
   enabled: false
